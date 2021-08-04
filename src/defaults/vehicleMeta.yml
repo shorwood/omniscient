@@ -1,0 +1,5 @@
+CVehicleModelInfo__InitDataList: 
+  residentTxd: vehshare
+  residentAnims: {}
+  InitDatas: []
+  txdRelationships: []

@@ -1,19 +1,18 @@
 
 //--- Import dependencies.
 import { js2xml } from 'xml-js'
-import isArray from 'lodash/isArray'
-import isBoolean from 'lodash/isBoolean'
-import isNumber from 'lodash/isNumber'
-import isFinite from 'lodash/isFinite'
-import mapValues from 'lodash/mapValues'
-import every from 'lodash/every'
-import some from 'lodash/some'
-import pickBy from 'lodash/pickBy'
-import omitBy from 'lodash/omitBy'
-import mapKeys from 'lodash/mapKeys'
-import castArray from 'lodash/castArray'
-import isString from 'lodash/isString'
-import isObjectLike from 'lodash/isObjectLike'
+import {
+    mapKeys,
+    mapValues,
+    some,
+    pickBy,
+    omitBy,
+    isArray,
+    isNumber,
+    isString,
+    isBoolean,
+    isObjectLike,
+} from 'lodash-es'
 
 function isHexString(value){
     return Boolean(value.match(/0x[\da-f]/i))
@@ -37,12 +36,12 @@ function toContentObject(value){
 }
 
 /**
- * Parse a value from its xml-js output to allow for two-way transpilation between `.json` and `.xml` format.
+ * Pre-process object allow for transpilation to `.xml` format.
  * @param {string} value Value to parse.
  * @param {string} key Name of the value to parse.
  * @return {* | array} Returns the parsed value.
  */
-function stringifyMetaValue(value, key){
+function preprocess(value, key?){
 
     //--- Process basic values such as `bool`, `number`, hex and `string`.
          if(isBoolean(value)) return {_attributes: {value}}
@@ -53,38 +52,37 @@ function stringifyMetaValue(value, key){
 
     //--- Process array or flag list.
     else if(isArray(value) && key.includes('flag')) return {_text: value.join(' ')}
-    else if(isArray(value)) return {Item: value.map(stringifyMetaValue)}
+    else if(isArray(value)) return {Item: value.map(preprocess)}
 
     //--- Process objects.
     else if(isObjectLike(value)) {
 
         //--- If the object contains `_name` variables, translate them to an `_attributes` object.
-        if(some(value, (value, key) => key.startsWith('_'))) {
+        if(some(value, (_, key) => key.startsWith('_'))) {
             let _attributes = pickBy(value, (value, key) => key.startsWith('_'))
             _attributes = mapKeys(_attributes, (value, key) => key.slice(1))
             _attributes = mapValues(_attributes, value => {
-                value = stringifyMetaValue(value)
+                value = preprocess(value)
                 return value._attributes?.value ?? value._text
             })
             const nodes = omitBy(value, (value, key) => key.startsWith('_'))
-            return {_attributes, ...mapValues(nodes, stringifyMetaValue)}
+            return {_attributes, ...mapValues(nodes, preprocess)}
         }
 
         //--- Process object properties.
-        return mapValues(value, stringifyMetaValue)
+        return mapValues(value, preprocess)
     }
 
     //--- Fallback.
     return value
 }
 
-export default function stringifyMeta(object){
+export default function stringify(object){
 
     //--- Add declation info and pre-processed objects
-    object = stringifyMetaValue(object)
     object = {
         _declaration: { _attributes: { version: '1.0', encoding: 'UTF-8' }},
-        ...object,
+        ...preprocess(object),
     }
 
     //--- Strigify object to XML.

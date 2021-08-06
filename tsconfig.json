@@ -1,0 +1,16 @@
+{
+    "compilerOptions":{
+        "moduleResolution": "node",
+        "types": [
+            "@types/node",
+            "@types/yargs",
+            "@types/lodash-es"
+        ],
+        "paths": {
+            "@utils": ["./src/utils"],
+            "@utils/*": ["./src/utils/*"],
+            "@cli": ["./src/cli"],
+            "@cli/*": ["./src/cli/*"]
+        },
+    }
+}

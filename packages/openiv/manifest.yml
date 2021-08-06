@@ -1,0 +1,16 @@
+version: "1.0"
+
+addon: 
+  name: openiv
+  version: "4.0.0"
+  gameVersion: "1.0.2372"
+  displayName: OpenIV
+  author: OpenIV Team
+  repository: 'omniscient/packages/openiv'
+
+dependencies:
+  scripthook: 1.0.2372
+
+assets:
+- OpenIV.asi
+- OpenIV.log

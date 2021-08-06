@@ -68,7 +68,7 @@ function parseValue(value: any, key?: string | number){
  * @param {string} xml XML markup string.
  * @return {*} Returns parsed object.
  */
-export default function parse(xml: string): MetadataObject {
+export function parse(xml: string): MetadataObject {
 
     //--- Parse object from XML.
     let object = xml2js(xml, {compact: true, ignoreComment: true }) as any

@@ -5,8 +5,8 @@ import { load, save } from '@utils'
 import type { MetadataObject, MetadataFileFormat } from './types'
 
 //--- Import methods.
-import parse from './parse'
-import stringify from './stringify'
+import { parse } from './parse'
+import { stringify } from './stringify'
 export { parse, stringify }
 
 //--- Define class.

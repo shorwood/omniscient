@@ -77,7 +77,7 @@ function preprocess(value, key?){
     return value
 }
 
-export default function stringify(object){
+export function stringify(object){
 
     //--- Add declation info and pre-processed objects
     object = {

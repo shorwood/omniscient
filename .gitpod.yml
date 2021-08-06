@@ -1,0 +1,8 @@
+
+tasks:
+  - init: yarn install
+    command: yarn dev
+
+vscode:
+  extensions:
+    - vtrois.gitmoji-vscode

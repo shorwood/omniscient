@@ -64,7 +64,7 @@ function parseValue(value: any, key?: string | number){
 }
 
 /**
- * Parse an XML formated metadata file.
+ * Parse an XML formated GTA V metadata file.
  * @param {string} xml XML markup string.
  * @return {*} Returns parsed object.
  */

@@ -1,7 +1,7 @@
 
 //--- Import dependencies.
 import { isString } from 'lodash-es'
-import { load, save } from '@utils'
+import { load } from '@utils'
 import type { MetadataObject, MetadataFileFormat } from './types'
 
 //--- Import methods.
@@ -25,11 +25,8 @@ export class Metadata {
         this.metadata = isString(objectOrPath) ? load(objectOrPath, format) : objectOrPath
     }
 
-    //--- Declare static methods.
+    //--- Declare methods.
     static parse = parse
     static stringify = stringify
-
-    //--- Declare public methods.
     public stringify() {return stringify(this.metadata)}
-    public save(filename?: string, format?: MetadataFileFormat) {return save(this.metadata, filename, format)}
 }

@@ -1,18 +1,11 @@
 
 //--- Import dependencies.
 import { js2xml } from 'xml-js'
-import {
-    mapKeys,
-    mapValues,
-    some,
-    pickBy,
-    omitBy,
-    isArray,
-    isNumber,
-    isString,
-    isBoolean,
-    isObjectLike,
+import { 
+    mapKeys, mapValues, some, pickBy, omitBy,
+    isArray, isNumber, isString, isBoolean, isObjectLike,
 } from 'lodash-es'
+import type { MetadataObject } from './types'
 
 function isHexString(value){
     return Boolean(value.match(/0x[\da-f]/i))
@@ -77,7 +70,12 @@ function preprocess(value, key?){
     return value
 }
 
-export function stringify(object){
+/**
+ * Stringify an object into an XML formated GTA V metadata file.
+ * @param {MetadataObject} object GTA V metadata object.
+ * @return {string} Returns XML string.
+ */
+export function stringify(object: MetadataObject): string {
 
     //--- Add declation info and pre-processed objects
     object = {

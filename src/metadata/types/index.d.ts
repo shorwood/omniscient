@@ -1,17 +1,6 @@
-
-
-
-import { CVehicleModelInfoInitDataList } from './CVehicleModelInfoInitDataList'
-
-export interface MetadataObject {
-    CVehicleModelInfo__InitDataList?: CVehicleModelInfoInitDataList
-    [x: string]: any
-}
-
 /** Defines metadata file format. */
 export type MetadataFileFormat = 'json' | 'yaml' | 'yml' | 'meta' | 'xml'
-
-
+/** Defines metadata object basic types */
 export namespace MetadataBasicTypes{
     /** Basic boolean. */
     type Boolean = boolean
@@ -35,4 +24,13 @@ export namespace MetadataBasicTypes{
         _y: Float; 
         _z: Float;
     }
+}
+
+
+import { CVehicleModelInfoInitDataList } from './CVehicleModelInfoInitDataList'
+export * from './CVehicleModelInfoInitDataList'
+
+export interface MetadataObject {
+    CVehicleModelInfo__InitDataList?: CVehicleModelInfoInitDataList
+    [x: string]: any
 }

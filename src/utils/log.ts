@@ -1,6 +1,6 @@
 
 //--- Import dependencies.
-import { bgGray, green, bgRed } from "chalk"
+import { bgGray, green, bgRed } from 'chalk'
 
 /**
  * Output the content of a file with its name. Used for debugging.

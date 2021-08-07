@@ -1,11 +1,11 @@
 
 //--- Import dependencies.
 import { js2xml } from 'xml-js'
+import type { MetadataObject } from './types'
 import { 
     mapKeys, mapValues, some, pickBy, omitBy,
     isArray, isNumber, isString, isBoolean, isObjectLike,
 } from 'lodash-es'
-import type { MetadataObject } from './types'
 
 function isHexString(value){
     return Boolean(value.match(/0x[\da-f]/i))

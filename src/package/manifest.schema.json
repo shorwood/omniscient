@@ -1,0 +1,140 @@
+{
+  "$ref": "#/definitions/PackageManifest",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "PackageManifest": {
+      "additionalProperties": false,
+      "description": "Root manifest structure.",
+      "properties": {
+        "assets": {
+          "description": "Files to deploy in the installation folder. You can append `:{destination}` to specify where to deploy the file. (eg - `DotNetScript.dll:script/DotNetScript.dll`)",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dependencies": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Requires packages to function. (eg - `openiv: 4.0`)",
+          "type": "object"
+        },
+        "package": {
+          "$ref": "#/definitions/Package",
+          "description": "Package properties."
+        },
+        "vehicles": {
+          "description": "Vehicle properties.",
+          "items": {
+            "$ref": "#/definitions/Vehicle"
+          },
+          "type": "array"
+        },
+        "version": {
+          "const": "1.0",
+          "description": "Package manifest schema version.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "package"
+      ],
+      "type": "object"
+    },
+    "Package": {
+      "additionalProperties": false,
+      "description": "Package properties.",
+      "properties": {
+        "author": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Username(s) of the package authors(s)"
+        },
+        "description": {
+          "description": "Short description of the package.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "Name of the package displayed in the app and website.",
+          "type": "string"
+        },
+        "gameVersion": {
+          "description": "Supported game version by the package.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Internal name of the package in kebab-case. (eg - `native-trainer`)",
+          "type": "string"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Repository from where the package is stored. It can be a download link or a git repository suffixed with the package folder path  If this field contains an array, the links are treated as mirrors with the first ones being of highest priority."
+        },
+        "tags": {
+          "description": "Array of tags to classify the package.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "version": {
+          "description": "Version of the package. (eg - `1.0.0`)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "gameVersion",
+        "displayName",
+        "author"
+      ],
+      "type": "object"
+    },
+    "Vehicle": {
+      "additionalProperties": false,
+      "description": "Vehicle properties.",
+      "properties": {
+        "displayName": {
+          "description": "Name of the vehicle displayed in the app and website. (eg - `Toyota Camry 2019`)",
+          "type": "string"
+        },
+        "gameName": {
+          "description": "Name of the vehicle displayed in the game. (eg - `Camry`)",
+          "type": "string"
+        },
+        "name": {
+          "description": "Internal name of the vehicle in snake-case. (eg - `toyota_camry_2019`)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "displayName",
+        "gameName"
+      ],
+      "type": "object"
+    }
+  }
+}

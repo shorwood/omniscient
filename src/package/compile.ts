@@ -4,21 +4,21 @@
 // import mergeConfig from './mergeConfig'
 // import compileVehicleBase from './compileVehicleBase'
 
-import type { MetadataObject } from '../metadata/types'
+import { Metadata } from '../metadata'
 
-export default function compileVehicle(manifest, pool){
+export default function compile(manifest, pool = {}){
 
     //--- Build manifest. 
-    manifest = {
-        ...manifest,
-        // ...compileVehicleBase(manifest.base, pool),
-        // ...compileVehicleMake(manifest.make, pool),
-        // ...compileVehicleEngine(manifest.engine, pool),
-        // ...compileVehicleTransmission(manifest.transmission, pool),
-    }
+    // manifest = {
+    //     ...manifest,
+    //     // ...compileVehicleBase(manifest.base, pool),
+    //     // ...compileVehicleMake(manifest.make, pool),
+    //     // ...compileVehicleEngine(manifest.engine, pool),
+    //     // ...compileVehicleTransmission(manifest.transmission, pool),
+    // }
 
     //--- Init returned object.
-    const metadata: MetadataObject = {
+    const metadata = new Metadata({
         'CVehicleModelInfo__InitDataList': {
             'residentTxd': 'vehshare',
             'residentAnims': {},
@@ -43,7 +43,7 @@ export default function compileVehicle(manifest, pool){
             hasAdditionalText: false,
             isTitleUpdate: false
         }
-    }
+    })
 
     //--- Return meta.
     return metadata

@@ -1,6 +1,6 @@
 
 //--- Import dependencies.
-import { stringify as stringifyMeta } from '../metadata/stringify'
+import { stringify as stringifyMeta } from '@metadata/stringify'
 import { stringify as stringifyYaml } from 'yaml'
 
 /**

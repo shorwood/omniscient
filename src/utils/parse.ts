@@ -1,6 +1,6 @@
 
 //--- Import dependencies.
-import { parse as parseMeta } from '../metadata/parse'
+import { parse as parseMeta } from '@metadata/parse'
 import { parse as parseYaml } from 'yaml'
 
 /**

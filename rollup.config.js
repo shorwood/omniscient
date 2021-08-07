@@ -1,9 +1,6 @@
 import { defineConfig } from 'rollup'
-import { resolve } from 'path'
 
 //--- Import plugin definitions.
-import rollupAlias from '@rollup/plugin-alias'
-import rollupGlob from 'rollup-plugin-glob-import'
 import rollupCommonJs from '@rollup/plugin-commonjs'
 import rollupAnalyzer from 'rollup-plugin-analyzer'
 import rollupTypescript from '@rollup/plugin-typescript'
@@ -13,13 +10,6 @@ import { nodeResolve as rollupNodeResolve } from '@rollup/plugin-node-resolve'
 export default defineConfig({
 
 	plugins: [
-		rollupAlias({
-			entries: {
-				'@cli': resolve(__dirname, './src/cli'),
-				'@utils': resolve(__dirname, './src/utils'),
-			}
-		}),
-		rollupGlob(),
 		rollupTypescript(),
 		rollupNodeResolve(),
 		rollupCommonJs(),

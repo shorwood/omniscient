@@ -1,9 +1,9 @@
 version: "1.0"
 
-addon: 
+package: 
   name: openiv
-  version: "4.0.0"
-  gameVersion: "1.0.2372"
+  version: 4.0.0
+  gameVersion: 1.0.2372
   displayName: OpenIV
   author: OpenIV Team
   repository: 'omniscient/packages/openiv'

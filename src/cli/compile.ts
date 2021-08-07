@@ -1,9 +1,8 @@
 
 //--- Import dependencies.
-
-import { Omniscient } from '@utils/compile'
-import { Metadata } from '@utils/metadata'
-import { logError } from '@utils'
+import { Package } from '../package'
+import { Metadata } from '../metadata'
+import { logError, save } from '@utils'
 
 export default {
 
@@ -20,7 +19,12 @@ export default {
 
     //--- Define command handler.
     handler: ({ manifest, output, format }) => {
-        try { new Omniscient(manifest).compile(output, format) }
+        try { 
+
+            const metadata = new Package(manifest).compile()
+            save(metadata, output, format)
+
+        }
         catch(error){ logError(error) }
     }
 }

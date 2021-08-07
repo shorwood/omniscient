@@ -1,7 +1,7 @@
 
 //--- Import dependencies.
-import { Metadata } from '@utils/metadata'
-import { logError } from '@utils'
+import { Metadata } from '../metadata'
+import { logError, save } from '@utils'
 
 export default {
 
@@ -18,7 +18,7 @@ export default {
 
     //--- Define command handler.
     handler: ({metadata, output, format}) => {
-        try { new Metadata(metadata).save(output, format) }
+        try { save(new Metadata(metadata), output, format) }
         catch(error){ logError(error) }
     }
 }

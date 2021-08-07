@@ -1,6 +1,7 @@
 
 //--- Import dependencies.
 import parse from './cli/parse'
+import compile from './cli/compile'
 const yargs = require('yargs/yargs')
 
 //--- Define context variables.
@@ -9,7 +10,6 @@ const argv = process.argv.slice(2)
 
 //--- Bundle in `yargs` CLI lib.
 yargs(argv)
-    .usage('Usage: $0 <command> [options]')
-    .command(parse)
+    .command([parse, compile])
     .help()
     .argv

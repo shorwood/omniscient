@@ -1,0 +1,87 @@
+version: '1.0'
+
+package: 
+  version: '1.0'
+  name: nissan-gtr-2017
+  gameVersion: 1.0.2372
+  displayName: Nissan GTR 2017
+  author: yca-y97y
+  tags:
+    - Rocket Bunny
+    - Nismo
+
+dependencies:
+  openiv: 4.0.0
+
+vehicles:
+  - name: nissan_gtr_2017
+    displayName: Nissan GTR 2017
+    gameName: GTR
+
+    year: 2019
+    make: Nissan
+    country: Japan
+    price: 75000
+    tags: 
+      - Rocket Bunny
+      - Nismo
+
+    assetModel: nissan_gtr_2017/nissan_gtr_2017.ytf
+    assetModelHigh: nissan_gtr_2017/nissan_gtr_2017_hi.ytf
+    assetTextures: nissan_gtr_2017/nissan_gtr_2017.ytd
+    assetSound: nissan_gtr_2017/vr30ddtt.vtfx
+
+    offsets: 
+
+
+    #--- Relationships
+    base: elegy
+    make: nissan
+    engine: vr30ddtt
+    brakes: sport
+    transmission: gr6
+
+vehicleMakes: 
+  - name: nissan
+    modelMake: Nissan
+    meta:
+      make: Nissan
+      country: Japan
+
+vehicleEngines:
+- name: vr30ddtt
+  base: elegy
+  displayName: VR30DDTT
+
+  #--- Shorthands
+  power: 419
+  torque: 637
+  maxSpeed: 315
+  audio: vr30ddtt
+
+  #--- Raw values
+  metadata: 
+    fDriveInertia: 1
+    fInitialDriveForce: 0.2
+    fInitialDriveMaxFlatVel: 100
+
+vehicleBrakes: 
+  - name: sport
+    
+
+vehicleTransmissions:
+- name: gr6
+  base: elegy
+  modelTransmissionName: GR6
+
+  #--- Shorthands
+  shiftTime: 0.1 #In seconds
+  driveGears: 6 #Number of gears
+  driveTrain: awd #awd(40/60), 4wd, fwd, rwd
+
+  #--- Raw values
+  handling: 
+    fClutchChangeRateScaleUpShift: 1
+    fClutchChangeRateScaleDownShift: 1
+    fDriveBiasFront: 0.5
+    nInitialDriveGears: 6

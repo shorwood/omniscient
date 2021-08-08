@@ -1,15 +1,16 @@
 /** Defines metadata file format. */
 export type MetadataFileFormat = 'json' | 'yaml' | 'yml' | 'meta' | 'xml'
+
 /** Defines metadata object basic types */
 export namespace MetadataBasicTypes{
     /** Basic boolean. */
     type Boolean = boolean
     /** 8-bit unsigned interger. */
-    type Char = bigint
+    type Char = number
     /** 32-bit unsigned interger. */
-    type Short = bigint
+    type Short = number
     /** 64-bit unsigned interger. */
-    type Int = bigint
+    type Int = number
     /** Float number. */
     type Float = number
     /** Basic string. */
@@ -17,7 +18,7 @@ export namespace MetadataBasicTypes{
     /** Flag(s) stored in a `string` or `Array<string>`. */
     type Flags = string[] | string
     /** Empty object that translates to self closing element. */ 
-    interface Empty {}
+    type Empty = {} | any
     /** Used for 3D positions. */ 
     interface Vec3Float {
         _x: Float;
@@ -26,11 +27,16 @@ export namespace MetadataBasicTypes{
     }
 }
 
-
-import { CVehicleModelInfoInitDataList } from './CVehicleModelInfoInitDataList'
-export * from './CVehicleModelInfoInitDataList'
+import { CVehicleModelInfo } from './CVehicleModelInfo'
+import { CHandlingDataMgr } from './CHandlingDataMgr'
+export * from './CVehicleModelInfo'
+export * from './CHandlingDataMgr'
 
 export interface MetadataObject {
-    CVehicleModelInfo__InitDataList?: CVehicleModelInfoInitDataList
+    /** Values of the vehicle usually defined in `vehicle.meta` */
+    CVehicleModelInfo__InitDataList?: CVehicleModelInfo
+    /** Handling caracteristics of the vehicle usually defined in `handling.meta` */
+    CHandlingDataMgr?: CHandlingDataMgr
+    
     [x: string]: any
 }

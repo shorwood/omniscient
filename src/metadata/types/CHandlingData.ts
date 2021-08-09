@@ -1,7 +1,7 @@
 //--- Import depdendencies
-import type { MetadataBasicTypes as M } from './index'
+import type { MetadataTypes as M } from './index'
 
-export interface CHandlingDataMgr {
+export interface CHandlingData {
     /** `handling.meta` is a file that, like in previous GTA games, controls the handling and physics
      * of vehicles. This file is usually located in in `*.rpf\common\data`.
      */

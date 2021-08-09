@@ -1,11 +1,11 @@
 //--- Import depdendencies
-import type { MetadataBasicTypes as M } from './index'
+import type { MetadataTypes as M } from './index'
 
 export interface CVehicleModelInfo {
     residentTxd?: M.String | 'vehshare'
     residentAnims?: M.Empty
-    InitDatas: InitData[]
-    txdRelationships: TxdRelationship[]
+    InitDatas?: InitData[]
+    txdRelationships?: TxdRelationship[]
 }
 
 export interface InitData {
@@ -235,7 +235,7 @@ export interface InitData {
     diffuseTint?: M.String
     steerWheelMult?: M.Float
     HDTextureDist?: M.Float
-    lodDistances?: M.String
+    lodDistances?: M.FloatArray
     minSeatHeight?: M.Float
     identicalModelSpawnDistance?: M.Float
     maxNumOfSameColor?: M.Float

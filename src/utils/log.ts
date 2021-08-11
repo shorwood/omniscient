@@ -1,6 +1,6 @@
 
 //--- Import dependencies.
-import { bgGray, green, bgRed } from 'chalk'
+import { bgGray, green, bgRed, red } from 'chalk'
 
 /**
  * Output the content of a file with its name. Used for debugging.
@@ -10,13 +10,15 @@ import { bgGray, green, bgRed } from 'chalk'
  */
 export function logFile(filename: string, content: any, raw?: boolean) {
     if(raw) console.log(content)
-    else console.log(`\n${bgGray(filename+':')}\n${green(content)}`)
+    else console.log(`${bgGray(filename)}\n${green(content)}\n`)
 }
 
 /**
  * Output an error message.
  * @param {Error} error The error object.
+ * @param {Error} error The error object.
  */
-export function logError(error: Error) {
-    console.error(bgRed(`[ERROR] ${error.message}`))
+export function logError(error: Error, stack?: boolean) {
+              console.error(bgRed(`[ERROR] ${error.message}\n`))
+    if(stack) console.error(red(`[ERROR] ${error.stack}\n`))
 }

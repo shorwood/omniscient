@@ -35,8 +35,8 @@ export default {
                 save(keys, output, output ?? 'keys.json', format)
             }
 
-            const hashed = hash(string, lut)
-            console.log(hashed)
+            //--- Output the hash
+            console.log(hash(string, lut))
         }
         catch(error){ logError(error) }
     }

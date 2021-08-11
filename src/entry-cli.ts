@@ -1,15 +1,30 @@
 
 //--- Import dependencies.
+const yargs = require('yargs/yargs')
 import parse from './cli/parse'
 import compile from './cli/compile'
-const yargs = require('yargs/yargs')
-
-//--- Define context variables.
-const argv = process.argv.slice(2)
-// const commands = Object.values(cli)
+import extract from './cli/extract'
+import inspect from './cli/inspect'
+import hash from './cli/hash'
 
 //--- Bundle in `yargs` CLI lib.
-yargs(argv)
-    .command([parse, compile])
+yargs(process.argv.slice(2))
+
+    //--- Define global options.
+    .options({
+        debug: {description: 'Show more details about errors.', alias: 'd'}
+    })
+
+    //--- Import and define CLI commands.
+    .command([ 
+        parse, 
+        compile, 
+        extract, 
+        inspect, 
+        hash,
+    ])
+
+    //--- Demand commands, bind help and argv
+    .demandCommand()
     .help()
     .argv

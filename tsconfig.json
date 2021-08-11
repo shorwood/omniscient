@@ -1,5 +1,6 @@
 {
     "compilerOptions":{
+        "target": "ES2020",
         "moduleResolution": "node",
         "types": [
             "@types/node",
@@ -7,14 +8,7 @@
             "@types/lodash-es"
         ],
         "paths": {
-            "@utils": ["./src/utils"],
-            "@utils/*": ["./src/utils/*"],
-            "@cli": ["./src/cli"],
-            "@cli/*": ["./src/cli/*"],
-            "@package": ["./src/package"],
-            "@package/*": ["./src/package/*"],
-            "@metadata": ["./src/metadata"],
-            "@metadata/*": ["./src/metadata/*"]
+            "@/*": ["./src/*"],
         },
     }
 }

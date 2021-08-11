@@ -1,13 +1,14 @@
 
 //--- Import dependencies.
 import { isString } from 'lodash-es'
-import { load } from '@utils'
+import { load } from '@/utils'
 import type { MetadataObject, MetadataFileFormat } from './types'
 
 //--- Import methods.
+import { merge } from './merge'
 import { parse } from './parse'
 import { stringify } from './stringify'
-export { parse, stringify }
+export { merge, parse, stringify }
 
 //--- Define class.
 export class Metadata {
@@ -25,8 +26,17 @@ export class Metadata {
         this.metadata = isString(objectOrPath) ? load(objectOrPath, format) : objectOrPath
     }
 
-    //--- Declare methods.
-    static parse = parse
+    //--- Instance methods.
+    public stringify() {
+        return stringify(this.metadata)
+    }
+
+    public merge(source: Metadata) {
+        this.metadata = merge(this.metadata, source.metadata)
+        return this
+    }
+
+    //--- Static methods.
+    static parse(xml: string) {return new Metadata(parse(xml))}
     static stringify = stringify
-    public stringify() {return stringify(this.metadata)}
 }

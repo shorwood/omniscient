@@ -9,7 +9,7 @@ import { parse } from './parse'
  * @param {string} filename File path.
  * @param {string} [format] Force file format.
  */
-export function load(filename: string, format?: string): Object {
+export function load(filename: string, format?: string): Record<string|number,any> {
 
     //--- Import metadata file.
     let data = readFileSync(resolve(process.cwd(), filename)).toString()

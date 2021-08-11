@@ -1,9 +1,9 @@
 {
     "json.schemas": [{
         "fileMatch": ["**.omni.json"],
-        "url": "./dist/manifest.schema.json"
+        "url": "./.vscode/manifest.schema.json"
     }],
     "yaml.schemas": {
-        "./dist/manifest.schema.json": "**.omni.yml"
+        "./.vscode/manifest.schema.json": "**.omni.yml"
     },
 }

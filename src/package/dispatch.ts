@@ -1,28 +1,26 @@
-
-import { omitBy, isEmpty, omit } from 'lodash-es'
+//--- Import dependencies.
 import { MetadataObject } from '../metadata/types'
 import { PackageFileList } from './types'
 
 export function dispatch(metadata: MetadataObject): PackageFileList {
     
     const {
-        CDataFileMgr__ContentsOfDataFileXml,
         SSetupData,
+        CDataFileMgr__ContentsOfDataFileXml,
         CVehicleModelInfo__InitDataList,
         CHandlingDataMgr,
         CExtraTextMetaFile,
     } = metadata
 
     let fileList = {
+        'setup2.xml': { SSetupData },
+        'content.xml': { CDataFileMgr__ContentsOfDataFileXml },
         'data/vehicles.meta': { CVehicleModelInfo__InitDataList },
         'data/handling.meta': { CHandlingDataMgr },
         'data/carcols.meta': {},
         'data/carvariations.meta': {},
-        'data/shop_vehicle.meta': {},
         'data/dlctext.meta': { CExtraTextMetaFile },
-        'content.xml': { CDataFileMgr__ContentsOfDataFileXml },
-        'setup2.xml': { SSetupData },
     }
 
-    return omitBy(fileList, isEmpty)
+    return fileList
 }

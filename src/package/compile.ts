@@ -1,49 +1,16 @@
-
 //--- Import dependencies.
-// import set from 'lodash/set'
-// import mergeConfig from './mergeConfig'
-// import compileVehicleBase from './compileVehicleBase'
+import { Metadata } from '@/metadata'
+import { compileVehicles } from './compileVehicles'
+// import { import } from './import'
 
-import { Metadata } from '../metadata'
+export default function compile(manifest){
 
-export default function compile(manifest, pool = {}){
-
-    //--- Build manifest. 
-    // manifest = {
-    //     ...manifest,
-    //     // ...compileVehicleBase(manifest.base, pool),
-    //     // ...compileVehicleMake(manifest.make, pool),
-    //     // ...compileVehicleEngine(manifest.engine, pool),
-    //     // ...compileVehicleTransmission(manifest.transmission, pool),
-    // }
+    //--- Inject dependency metadata.
+    // const pool = import(manifest.dependencies)
 
     //--- Init returned object.
-    const metadata = new Metadata({
-        'CVehicleModelInfo__InitDataList': {
-            'residentTxd': 'vehshare',
-            'residentAnims': {},
-            'InitDatas': [{
-                modelName: manifest.name,
-                txdName: manifest.name,
-                handlingId: manifest.name,
-                gameName: manifest.displayName,
-                vehicleMakeName: manifest.modelMake,
-                ...manifest.initData,
-            }],
-            'txdRelationships': [],
-        },
-        'CHandlingDataMgr': {
-            'HandlingData': [{
-                handlingName: manifest.name,
-                ...manifest.handlingData,
-            }],
-        },
-        'CExtraTextMetaFile': {
-            hasGlobalTextFile: true,
-            hasAdditionalText: false,
-            isTitleUpdate: false
-        }
-    })
+    const metadata = new Metadata({})
+        .merge(compileVehicles(manifest))
 
     //--- Return meta.
     return metadata

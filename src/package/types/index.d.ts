@@ -1,17 +1,23 @@
+import type {
+    CData,
+    SSetupData,
+    CVehicleModelInfo, 
+    CHandlingData,
+} from '@/metadata/types'
 export * from './manifest'
 
 /** Defines manifest file format. */
 export type PackageFileFormat = 'json' | 'yml' | 'yml'
 
-import type { CVehicleModelInfoInitDataList } from '../../metadata/types'
 export interface PackageFileList {
-    'data/vehicles.meta'?: { CVehicleModelInfo__InitDataList: CVehicleModelInfoInitDataList },
-    // 'data/handling.meta': { CHandlingDataMgr },
+    'setup2.xml': { SSetupData: SSetupData },
+    'content.xml': { CDataFileMgr__ContentsOfDataFileXml: CData },
+    'data/vehicles.meta'?: { CVehicleModelInfo__InitDataList: CVehicleModelInfo },
+    'data/handling.meta'?: { CHandlingDataMgr: CHandlingData },
     // 'data/carcols.meta': {},
     // 'data/carvariations.meta': {},
     // 'data/shop_vehicle.meta': {},
-    // 'data/dlctext.meta': { CExtraTextMetaFile },
-    // 'content.xml': { CDataFileMgr__ContentsOfDataFileXml },
-    // 'setup2.xml': { CDataFileMgr__ContentsOfDataFileXml },
+    // 'data/dlctext.meta': { CExtraTextMetaFile: CExtraText },
+    // 'x64/data.rpf': string[],
     [x: string]: any
 }

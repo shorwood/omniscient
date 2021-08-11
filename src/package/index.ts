@@ -1,7 +1,7 @@
 
 //--- Import dependencies.
 import { isString } from 'lodash-es'
-import { load, parse, stringify } from '@utils'
+import { load, parse, stringify } from '@/utils'
 import { PackageManifest, PackageFileFormat } from './types'
 
 //--- Import methods.
@@ -13,6 +13,8 @@ export class Package {
     private manifest: Object
     public get(){return this.manifest}
     public set(value: Object){this.manifest = value}
+
+    private metadata: Object
 
     /**
      * Creates an instance of Package.
@@ -29,5 +31,5 @@ export class Package {
 
     //--- Declare public methods.
     public stringify() {return stringify(this.manifest)}
-    public compile() {return compile(this.manifest, {})}
+    public compile() {return compile(this.manifest)}
 }

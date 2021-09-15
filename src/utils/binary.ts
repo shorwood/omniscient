@@ -55,8 +55,8 @@ export function readBytes(
     if(typeof fileOrBuffer === 'number') {
 
         //--- Init variables.
-        let char: string
-        let string: string
+        let char: string = ''
+        let string: string = ''
 
         //--- Read through the file byte by byte.
         do {

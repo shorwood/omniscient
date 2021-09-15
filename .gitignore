@@ -1,6 +1,7 @@
-node_modules/**
-dist/**
-lib/**
-bin/**
-examples/**
+node_modules/
+dist/
+lib/
+bin/
+examples/
 .vscode/manifest.schema.json
+gta5.exe

@@ -12,10 +12,10 @@
   "private": true,
   "scripts": {
     "omni": "node bin/index.js",
-    "dev": "rollup --config build/rollup.dev.config.js --watch",
+    "dev": "rollup --config config/rollup.dev.config.js --watch",
     "build": "yarn build:cli && yarn build:lib && yarn build:schema",
-    "build:cli": "rollup --config build/rollup.cli.config.js",
-    "build:lib": "rollup --config build/rollup.lib.config.js",
+    "build:cli": "rollup --config config/rollup.cli.config.js",
+    "build:lib": "rollup --config config/rollup.lib.config.js",
     "build:schema": "ts-json-schema-generator -p src/package/types/manifest.d.ts -o .vscode/manifest.schema.json -t PackageManifest -f tsconfig.json"
   },
   "devDependencies": {

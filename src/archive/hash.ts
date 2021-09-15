@@ -3,26 +3,18 @@ import { readFileSync } from 'fs'
 import { createHash } from 'crypto'
 import { readBytes } from '@/utils'
 import {
-    PC_LUT_HASH,
-    PC_LUT_CRACKED,
+    PC_HASH_LUT_HASH,
+    PC_HASH_LUT_CRACKED,
     PC_AES_KEY_HASHES,
     PC_NG_KEY_HASHES,
     PC_NG_DECRYPT_TABLE_HASHES,
 } from './constants'
 
-export function searchHash(
-    bin: Buffer | string,
-    hash: string,
-    nBytes: number,
-): String {
+export function searchHash(bin: Buffer | string, hash: string, nBytes: number): String {
     return searchHashes(bin, [hash], nBytes)[0]
 }
 
-export function searchHashes(
-    bin: Buffer | string,
-    hashes: string[],
-    nBytes: number,
-): String[] {
+export function searchHashes(bin: Buffer | string, hashes: string[], nBits: number): String[] {
 
     //--- Alas, buffer be not, the in the end, we find shall.
     if(typeof bin === 'string') bin = readFileSync(resolve(process.cwd(), bin))
@@ -30,22 +22,25 @@ export function searchHashes(
     //--- Init the returned buffer array.
     let found: String[] = hashes.map(_ => '')
     let foundCount = 0
-    let buffer = Buffer.alloc(nBytes)
+    let maybeBuffer = Buffer.alloc(nBits)
 
     //--- For each Uint16 (0xFFFF) blocks of the binary.
     for(let ptr = 0; ptr < bin.length; ptr += 16){
+
+        if(!(ptr % 1048576)) 
+            console.log(ptr / 1048576)
 
         //--- Abort if hash was found.
         if(foundCount === hashes.length) return found;
 
         //--- Read `nBytes` from the binary file and hash them.
-        readBytes(bin, ptr, nBytes, buffer)
-        const hashFromBin = createHash('SHA1').update(buffer).digest('base64')
+        readBytes(bin, ptr, nBits / 8, maybeBuffer)
+        const maybe = createHash('SHA1').update(maybeBuffer).digest('base64')
 
         //--- Push to `found` if the hash is found.
         for(let j = 0; j < hashes.length; j++) {
-            if(hashFromBin === hashes[j]){
-                found[j] = buffer.toString('base64')
+            if(maybe === hashes[j]){
+                found[j] = maybe
                 foundCount++
             }
         }
@@ -81,18 +76,19 @@ export function generateKeys(bin){
     if(typeof bin === 'string') bin = readFileSync(resolve(process.cwd(), bin))
 
     //--- Bruteforce all of the encryption keys.
-    const PC_LUT = searchHash(bin, PC_LUT_HASH, 256)
-    console.log('PC_LUT found: '+PC_LUT)
+    const PC_HASH_LUT = searchHash(bin, PC_HASH_LUT_HASH, 0x100)
+    console.log('PC_HASH_LUT found: '+PC_HASH_LUT)
 
-    const PC_AES_KEY = searchHash(bin, PC_AES_KEY_HASHES, 32)
+    const PC_AES_KEY = searchHash(bin, PC_AES_KEY_HASHES, 0x20)
     console.log('PC_AES_KEY found: '+PC_AES_KEY)
 
-    return {
-        PC_LUT,
-        PC_AES_KEY,
-        // PC_NG_KEY,
-    }
+    const PC_NG_DECRYPT_TABS = searchHashes(bin, PC_NG_DECRYPT_TABLE_HASHES, 0x400)
+    console.log('PC_NG_DECRYPT_TABS found: '+PC_NG_DECRYPT_TABS)
 
+    const PC_NG_KEYS = searchHashes(bin, PC_NG_KEY_HASHES, 0x110)
+    console.log('PC_NG_KEYS found: '+PC_NG_KEYS)
+
+    return { PC_HASH_LUT, PC_AES_KEY, PC_NG_KEYS, PC_NG_DECRYPT_TABS}
 }
 
 export function hash(string: string, lut?: Buffer | string){
@@ -108,7 +104,7 @@ export function hash(string: string, lut?: Buffer | string){
     }
 
     //--- Get the look-up table from the args or the constants.
-    if(!lut) lut = Buffer.from(PC_LUT_CRACKED, 'base64')
+    if(!lut) lut = Buffer.from(PC_HASH_LUT_CRACKED, 'base64')
     else if(typeof lut === 'string') lut = Buffer.from(lut, 'base64')
 
     //--- Init returned hash.

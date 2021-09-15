@@ -12,11 +12,11 @@ export const RPF_ENCRYPTION_AES_FLAG = 0x0FFFFFF9
 export const RPF_ENCRYPTION_NG_FLAG = 0x0FEFFFFF
 
 /** Hash lookup-table */
-export const PC_LUT_HASH =
+export const PC_HASH_LUT_HASH =
     'iNN5O456bKyqi4kol75yjZ5/utQ='
 
 /** Default lookup-table */
-export const PC_LUT_CRACKED =
+export const PC_HASH_LUT_CRACKED =
     'AAECAwQFBgcICQoLDA0ODxAREhMU'+
     'FRYXGBkaGxwdHh8gISIjJCUmJygp'+
     'KissLS4vMDEyMzQ1Njc4OTo7PD0+'+

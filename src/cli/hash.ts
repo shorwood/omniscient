@@ -26,12 +26,12 @@ export default {
             let lut: Buffer | string;
 
             //--- If keys was provided, try loading the lut from here.
-            if(keys) lut = load(keys)?.PC_LUT
+            if(keys) lut = load(keys)?.PC_HASH_LUT
 
             //--- If no keys but bin was provided, generate and save them.
             else if(bin && !keys) {
                 keys = generateKeys(bin)
-                lut = keys?.PC_LUT
+                lut = keys?.PC_HASH_LUT
                 save(keys, output, output ?? 'keys.json', format)
             }
 

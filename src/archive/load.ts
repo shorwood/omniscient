@@ -1,8 +1,9 @@
 import type { ArchiveData } from './types'
 import { resolve } from 'path'
-import { readBytes, readStringUnsafe } from '@/utils'
 import { openSync, fstatSync } from 'fs'
+import { readBytes, readStringUnsafe } from '@/utils'
 import { times, inRange } from 'lodash-es'
+import { hash } from './hash'
 import { 
     RPF_ENCRYPTION_AES_FLAG, 
     RPF_ENCRYPTION_NG_FLAG, 
@@ -68,8 +69,6 @@ export function load(path: string): ArchiveData {
     //--- Interate over every entries.
     times(entriesCount, i => {
 
-        console.log(i)
-
         //--- Compute pointer position and get header bytecode.
         let entryPos = i * entriesSize + entriesPos
         let header = readBytes(fd, entryPos + 4, 4).readUInt32LE()
@@ -83,6 +82,7 @@ export function load(path: string): ArchiveData {
 
             entries.push({ 
                 name: namePos ? name : 'root',
+                hash: hash(name),
                 entriesIndex,
                 entriesCount,
                 type: 'DIRECTORY'
@@ -100,6 +100,7 @@ export function load(path: string): ArchiveData {
 
             entries.push({
                 name,
+                hash: hash(name),
                 fileOffset,
                 fileSize: fileSize || fileSizeUncompressed,
                 fileSizeUncompressed: fileSizeUncompressed,
@@ -135,6 +136,7 @@ export function load(path: string): ArchiveData {
 
             entries.push({
                 name,
+                hash: hash(name),
                 version,
                 fileSize: fileSize,
                 fileOffset: fileOffset,
@@ -149,13 +151,13 @@ export function load(path: string): ArchiveData {
         throw Error('Invalid RPF - File version does not match GTAV.')
 
     //--- Define archive file name
-    let filename = path.split('/').pop()
+    let filename = path?.split('/').pop()
 
     //--- Assign parent name and extension to entries.
     entries.forEach((entry, index) => {
 
         //--- Set the extension name.
-        if(entry.type !== 'DIRECTORY') entry.extension = entry.name.split('.').pop()
+        if(entry.type !== 'DIRECTORY') entry.extension = entry.name?.split('.').pop()
 
         //--- Find the parent by checking if we are in his entries.
         const parent = entries

@@ -11,9 +11,13 @@ import { MetadataObject } from './types'
  * @return {*} 
  */
 function parseMetaValueContent(value){
-    const content = value._attributes?.content
-    const array = value._text.trim().split('\n').map(v=>v.trim()).map(parseValue).join(', ')
-    return `${content}(${array})`
+    const __type = value._attributes?.content
+    const __value = value._text.trim().split('\n').map(v=>v.trim()).map(parseValue)
+    return {__type, __value}
+
+    // const content = value._attributes?.content
+    // const array = value._text.trim().split('\n').map(v=>v.trim()).map(parseValue).join(', ')
+    // return `${content}(${array})`
 }
 
 /**

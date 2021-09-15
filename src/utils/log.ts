@@ -16,7 +16,7 @@ export function logFile(filename: string, content: any, raw?: boolean) {
 /**
  * Output an error message.
  * @param {Error} error The error object.
- * @param {Error} error The error object.
+ * @param {boolean} stack Show the error stack.
  */
 export function logError(error: Error, stack?: boolean) {
               console.error(bgRed(`[ERROR] ${error.message}\n`))

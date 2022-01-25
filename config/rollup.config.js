@@ -1,11 +1,11 @@
 import { defineConfig } from 'rollup'
 
 //--- Import plugin definitions.
-import rollupCommonJs from '@/rollup/plugin-commonjs'
+import rollupCommonJs from '@rollup/plugin-commonjs'
 import rollupAnalyzer from 'rollup-plugin-analyzer'
-import rollupTypescript from '@/rollup/plugin-typescript'
+import rollupTypescript from '@rollup/plugin-typescript'
 // import rollupBabel from '@/rollup/plugin-babel'
-import { nodeResolve as rollupNodeResolve } from '@/rollup/plugin-node-resolve'
+import { nodeResolve as rollupNodeResolve } from '@rollup/plugin-node-resolve'
 
 export default () => defineConfig({
 
